@@ -27,9 +27,9 @@
       "@pages/*": ["pages/*"],
       "@shared/*": ["shared/*"],
       "@widgets/*": ["widgets/*"],
-      "@entities/*": ["src/entities/"]
+      "@entities/*": ["entities/"]
     }
   },
-
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts"],
+  "types": ["node"]
 }

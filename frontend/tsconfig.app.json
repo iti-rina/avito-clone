@@ -29,8 +29,9 @@
       "@pages/*": ["pages/*"],
       "@shared/*": ["shared/*"],
       "@widgets/*": ["widgets/*"],
-      "@entities/*": ["src/entities/"]
+      "@entities/*": ["entities/"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "types": ["node"]
 }
