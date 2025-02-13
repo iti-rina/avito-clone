@@ -1,0 +1,63 @@
+{
+  "createItemForm": {
+    "title": "New item",
+    "labelTitle": "Title",
+    "labelDescription": "Description",
+    "labelCity": "City",
+    "labelPhoto": "Photos",
+    "uploadInstructions": "Select files or drag and drop them",
+    "uploadRestrictions": "Jpeg, png up to 20 MB",
+    "category": "Category",
+    "realEstateCategory": "Real estate",
+    "autoCategory": "Auto",
+    "servicesCategory": "Services",
+    "labelPropertyType": "Property Type",
+    "propertyType": {
+      "apartment": "Apartment",
+      "room": "Room",
+      "house": "House, summer house, cottage",
+      "land": "Land",
+      "garage": "Garage and parking space",
+      "commercial": "Commercial real estate",
+      "abroad": "Real estate abroad",
+      "hotel": "Hotel"
+    },
+    "labelArea": "Area",
+    "areaSuffix": "m2",
+    "labelRooms": "Rooms count",
+    "labelPrice": "Price",
+    "labelBrand": "Brand",
+    "labelModel": "Model",
+    "labelYear": "Year of car production",
+    "labelMileage": "Mileage",
+    "mileageSuffix": "km",
+    "services": {
+      "repair": "Repair",
+      "cleaning": "Cleaning",
+      "delivery": "Delivery",
+      "moving": "Moving",
+      "babysitting": "Babysitting",
+      "tutoring": "Tutoring",
+      "plumbing": "Plumbing",
+      "electrician": "Electrician",
+      "car_repair": "Car Repair",
+      "design": "Design",
+      "photo_video": "Photo & Video Shooting",
+      "it_services": "IT Services",
+      "beauty": "Beauty Salon",
+      "fitness": "Fitness & Yoga",
+      "legal": "Legal Services"
+    },
+    "labelServiceType": "Service Type",
+    "labelExperience": "Experience",
+    "experienceSuffix": "year",
+    "labelCost": "Cost",
+    "labelSchedule": "Schedule"
+  },
+  "actionButton": {
+    "next": "Next",
+    "back": "Go back",
+    "createItem": "Create item",
+    "saveAndExit": "Save & Exit"
+  }
+}

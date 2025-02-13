@@ -1,0 +1,63 @@
+{
+  "createItemForm": {
+    "title": "Новое объявление",
+    "labelTitle": "Название",
+    "labelDescription": "Описание",
+    "labelCity": "Город",
+    "labelPhoto": "Фотографии",
+    "uploadInstructions": "Выберите файлы или перетащите их",
+    "uploadRestrictions": "Jpeg, png до 20 МБ",
+    "category": "Категория",
+    "realEstateCategory": "Недвижимость",
+    "autoCategory": "Автомобили",
+    "servicesCategory": "Услуги",
+    "labelPropertyType": "Тип недвижимости",
+    "propertyType": {
+      "apartment": "Квартира",
+      "room": "Комната",
+      "house": "Дом, дача, коттедж",
+      "land": "Земельный участок",
+      "garage": "Гараж и машиноместо",
+      "commercial": "Коммерческая недвижимость",
+      "abroad": "Недвижимость за рубежом",
+      "hotel": "Отель"
+    },
+    "labelArea": "Площадь",
+    "areaSuffix": "м2",
+    "labelRooms": "Количество комнат",
+    "labelPrice": "Цена",
+    "labelBrand": "Марка",
+    "labelModel": "Модель",
+    "labelYear": "Год выпуска",
+    "labelMileage": "Пробег",
+    "mileageSuffix": "км",
+    "services": {
+      "repair": "Ремонт",
+      "cleaning": "Уборка",
+      "delivery": "Доставка",
+      "moving": "Переезд",
+      "babysitting": "Няня",
+      "tutoring": "Репетиторство",
+      "plumbing": "Сантехнические услуги",
+      "electrician": "Электрик",
+      "car_repair": "Автосервис",
+      "design": "Дизайн",
+      "photo_video": "Фото и видеосъемка",
+      "it_services": "IT-услуги",
+      "beauty": "Салон красоты",
+      "fitness": "Фитнес и йога",
+      "legal": "Юридические услуги"
+    },
+    "labelServiceType": "Тип услуги",
+    "labelExperience": "Опыт работы",
+    "experienceSuffix": "лет",
+    "labelCost": "Стоимость",
+    "labelSchedule": "График работы"
+  },
+  "actionButton": {
+    "next": "Далее",
+    "back": "Назад",
+    "createItem": "Создать объявление",
+    "saveAndExit": "Сохранить и выйти"
+  }
+}
