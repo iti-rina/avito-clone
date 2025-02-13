@@ -1,6 +1,6 @@
 type Category = 'Недвижимость' | 'Авто' | 'Услуги';
 
-type Ad = {
+export type Item = {
   name: string;
   description: string;
   location: string;
@@ -8,28 +8,28 @@ type Ad = {
   photo?: unknown;
 };
 
-export type RealEstateAd = {
+export type RealEstateItem = {
   propertyType: string;
   area: number;
   rooms: number;
   price: number;
-} & Ad;
+} & Item;
 
-export type AutoAd = {
+export type AutoItem = {
   brand: string;
   model: string;
   year: number;
   mileage?: number;
-} & Ad;
+} & Item;
 
-export type ServicesAd = {
+export type ServicesItem = {
   serviceType: string;
   experience: number;
   cost: number;
   schedule?: string;
-} & Ad;
+} & Item;
 
-export type EditAdParams = {
+export type EditItemParams = {
   id: string;
-  adData: RealEstateAd | AutoAd | ServicesAd;
+  itemData: RealEstateItem | AutoItem | ServicesItem;
 };

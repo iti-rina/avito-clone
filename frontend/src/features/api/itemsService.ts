@@ -1,9 +1,9 @@
 import { apiClient } from '@shared/api/apiClient';
 import {
-  AutoAd,
-  EditAdParams,
-  RealEstateAd,
-  ServicesAd
+  AutoItem,
+  EditItemParams,
+  RealEstateItem,
+  ServicesItem
 } from '@shared/types/common';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
@@ -17,13 +17,13 @@ const fetchItemById = async (id: string) => {
   return data;
 };
 
-const createItem = async (adData: RealEstateAd | AutoAd | ServicesAd) => {
+const createItem = async (adData: RealEstateItem | AutoItem | ServicesItem) => {
   const { data } = await apiClient.post('/items', adData);
   return data;
 };
 
-const editItem = async ({ id, adData }: EditAdParams) => {
-  const { data } = await apiClient.put(`/items/${id}`, adData);
+const editItem = async ({ id, itemData }: EditItemParams) => {
+  const { data } = await apiClient.put(`/items/${id}`, itemData);
   return data;
 };
 
