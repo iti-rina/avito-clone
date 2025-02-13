@@ -1,6 +1,7 @@
 import { withQuery } from './withQuery';
+import { withStyles } from './withStyles';
 
-const providers = [withQuery];
+const providers = [withQuery, withStyles];
 
 export const withProviders = (Component: React.FC) => {
   return providers.reduce(
