@@ -1,7 +1,7 @@
 import { useGetItems } from '@features/api/itemsService';
 import { ItemPreviewSkeleton } from '@shared/ui/ItemPreviewSkeleton';
 import { ItemPreview } from '@widgets/item-preview/ItemPreview';
-import { List, Pagination, Result } from 'antd';
+import { List, Pagination, Result, Select } from 'antd';
 import { FC, useState } from 'react';
 import styled from 'styled-components';
 
@@ -9,17 +9,32 @@ export const ItemsListPage: FC = () => {
   const [page, setCurrentPage] = useState(1);
   const limit = 5;
 
-  const { data, isError, isLoading } = useGetItems({ page, limit });
+  const [category, setCategory] = useState('all');
+  const handleCategoryChange = (value: string) => {
+    setCurrentPage(1);
+    setCategory(value);
+  };
+
+  const { data, isError, isLoading } = useGetItems({ page, limit, category });
 
   const loaders = Array.from(Array(5).keys()).map((item) => (
     <ItemPreviewSkeleton key={`${item}-skeleton`} />
   ));
 
-  console.log(data);
-
   return (
     <>
       <PageWrapper>
+        <Select
+          defaultValue={category}
+          style={{ width: '250px' }}
+          options={[
+            { value: 'all', label: 'Все' },
+            { value: 'REAL_ESTATE', label: 'Недвижимость' },
+            { value: 'AUTO', label: 'Авто' },
+            { value: 'SERVICES', label: 'Услуги' }
+          ]}
+          onChange={handleCategoryChange}
+        />
         <StyledList>
           {data && (
             <>

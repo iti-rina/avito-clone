@@ -380,18 +380,27 @@ app.post('/items', (req, res) => {
 
 // Получение всех объявлений
 app.get('/items', (req, res) => {
-  let { page = 1, limit = 5 } = req.query;
+  let { page = 1, limit = 5, category = '' } = req.query;
   page = parseInt(page);
   limit = parseInt(limit);
 
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
 
-  const paginatedItems = items.slice(startIndex, endIndex);
+  let filteredByCategory = [];
+  if (category !== 'all') {
+    filteredByCategory = items.filter(
+      (item) => item.type === ItemTypes[category]
+    );
+  } else {
+    filteredByCategory = items;
+  }
+
+  let paginatedItems = filteredByCategory.slice(startIndex, endIndex);
 
   res.set({
-    'X-Total-Count': items.length,
-    'X-Total-Pages': Math.ceil(items.length / limit),
+    'X-Total-Count': filteredByCategory.length,
+    'X-Total-Pages': Math.ceil(filteredByCategory.length / limit),
     'X-Current-Page': page
   });
 

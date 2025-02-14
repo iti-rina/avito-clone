@@ -7,8 +7,10 @@ import {
 } from '@shared/types/common';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-const fetchItems = async (page: number, limit: number) => {
-  const response = await apiClient.get('/items', { params: { page, limit } });
+const fetchItems = async (page: number, limit: number, category?: string) => {
+  const response = await apiClient.get('/items', {
+    params: { page, limit, category }
+  });
   console.log(response.headers);
   return {
     data: response.data,
@@ -35,14 +37,16 @@ const editItem = async ({ id, itemData }: EditItemParams) => {
 
 export const useGetItems = ({
   page,
-  limit
+  limit,
+  category
 }: {
   page: number;
   limit: number;
+  category: string;
 }) => {
   return useQuery({
-    queryKey: ['items', page],
-    queryFn: () => fetchItems(page, limit)
+    queryKey: ['items', page, category],
+    queryFn: () => fetchItems(page, limit, category)
   });
 };
 
