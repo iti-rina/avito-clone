@@ -7,9 +7,15 @@ import {
 } from '@shared/types/common';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-const fetchItems = async () => {
-  const { data } = await apiClient.get('/items');
-  return data;
+const fetchItems = async (page: number, limit: number) => {
+  const response = await apiClient.get('/items', { params: { page, limit } });
+  console.log(response.headers);
+  return {
+    data: response.data,
+    total: response.headers.get('X-Total-Count'),
+    totalPages: response.headers.get('X-Total-Pages'),
+    currentPage: response.headers.get('X-Current-Page')
+  };
 };
 
 const fetchItemById = async (id: string) => {
@@ -27,8 +33,17 @@ const editItem = async ({ id, itemData }: EditItemParams) => {
   return data;
 };
 
-export const useGetItems = () => {
-  return useQuery({ queryKey: ['items'], queryFn: fetchItems });
+export const useGetItems = ({
+  page,
+  limit
+}: {
+  page: number;
+  limit: number;
+}) => {
+  return useQuery({
+    queryKey: ['items', page],
+    queryFn: () => fetchItems(page, limit)
+  });
 };
 
 export const useGetItemById = (id: string) => {

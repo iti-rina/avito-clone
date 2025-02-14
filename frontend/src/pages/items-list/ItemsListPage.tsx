@@ -1,21 +1,47 @@
 import { useGetItems } from '@features/api/itemsService';
+import { ItemPreviewSkeleton } from '@shared/ui/ItemPreviewSkeleton';
 import { ItemPreview } from '@widgets/item-preview/ItemPreview';
-import { List } from 'antd';
-import { FC } from 'react';
+import { List, Pagination, Result } from 'antd';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 
 export const ItemsListPage: FC = () => {
-  const { data, isError, isLoading } = useGetItems();
+  const [page, setCurrentPage] = useState(1);
+  const limit = 5;
+
+  const { data, isError, isLoading } = useGetItems({ page, limit });
+
+  const loaders = Array.from(Array(5).keys()).map((item) => (
+    <ItemPreviewSkeleton key={`${item}-skeleton`} />
+  ));
+
+  console.log(data);
 
   return (
-    <PageWrapper>
-      <StyledList>
-        {data &&
-          data.map((item, index: number) => (
-            <ItemPreview item={item} id={item.id ? item.id : index} />
-          ))}
-      </StyledList>
-    </PageWrapper>
+    <>
+      <PageWrapper>
+        <StyledList>
+          {data && (
+            <>
+              {data.data.map((item, index: number) => (
+                <ItemPreview item={item} id={item.id ? item.id : index} />
+              ))}
+              <Pagination
+                defaultCurrent={1}
+                total={data.total}
+                pageSize={limit}
+                current={page}
+                onChange={(page) => setCurrentPage(page)}
+              />
+            </>
+          )}
+          {isLoading && loaders}
+        </StyledList>
+      </PageWrapper>
+      {isError && (
+        <Result status='500' title='Не удалось загрузить объявления' />
+      )}
+    </>
   );
 };
 
@@ -27,4 +53,5 @@ const StyledList = styled(List)`
   .ant-list-item {
     justify-content: flex-start !important;
   }
+  width: 928px;
 `;

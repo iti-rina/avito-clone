@@ -48,10 +48,14 @@ export const ItemPreview: FC<ItemPreviewProps> = ({ item, id }) => {
   );
 };
 
-const ItemContent = styled(List.Item)`
+const ItemContent = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 30px;
+
+  @media (max-width: 769px) {
+    flex-direction: column;
+  }
 `;
 const MainInfoWrapper = styled.div`
   display: flex;
