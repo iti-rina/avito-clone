@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { RouteParams, RoutesList } from './types';
 import { CreateItemForm } from '@features/create-item/ui/CreateItemForm';
+import { ItemsListPage } from '@pages/items-list/ItemsListPage';
 
 export const routes: RouteParams[] = [
   {
@@ -9,7 +10,7 @@ export const routes: RouteParams[] = [
   },
   {
     path: RoutesList.List,
-    element: <div>List</div>
+    element: <ItemsListPage />
   },
   {
     path: RoutesList.Item,
