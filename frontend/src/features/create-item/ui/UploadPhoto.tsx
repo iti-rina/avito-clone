@@ -1,37 +1,50 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { message, Upload } from 'antd';
-import type { UploadProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-
-const props: UploadProps = {
-  // name: 'file',
-  // multiple: true,
-  // action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
-  // onChange(info) {
-  //   const { status } = info.file;
-  //   if (status !== 'uploading') {
-  //     console.log(info.file, info.fileList);
-  //   }
-  //   if (status === 'done') {
-  //     message.success(`${info.file.name} file uploaded successfully.`);
-  //   } else if (status === 'error') {
-  //     message.error(`${info.file.name} file upload failed.`);
-  //   }
-  // },
-  // onDrop(e) {
-  //   console.log('Dropped files', e.dataTransfer.files);
-  // }
-};
+import { useFormContext } from 'react-hook-form';
+import imageCompression from 'browser-image-compression';
 
 const { Dragger } = Upload;
 
 export const UploadPhoto: FC = () => {
   const { t } = useTranslation('createItemForm');
 
+  const { setValue } = useFormContext();
+  const [fileList, setFileList] = useState([]);
+
+  const getBase64 = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const handleUpload = async (file: File) => {
+    try {
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1024
+      });
+
+      const base64 = await getBase64(compressedFile);
+      setValue('photo', base64);
+      setFileList([
+        { uid: file.uid, name: file.name, status: 'done', url: base64 }
+      ]);
+    } catch (error) {
+      message.error('Ошибка загрузки файла');
+    }
+    return false;
+  };
+
   return (
     <Dragger
-      {...props}
+      accept='image/*'
+      beforeUpload={handleUpload}
+      fileList={fileList}
+      maxCount={1}
       style={{
         paddingTop: '8px',
         paddingBottom: '8px',
