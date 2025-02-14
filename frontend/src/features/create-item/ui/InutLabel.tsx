@@ -22,6 +22,5 @@ const Label = styled.label`
 `;
 
 const LabelText = styled.span`
-  font-size: 16px;
   line-height: 137%;
 `;

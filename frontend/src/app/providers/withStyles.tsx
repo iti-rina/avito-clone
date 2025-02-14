@@ -6,7 +6,11 @@ export const withStyles = (Component: React.FC) => () => {
       theme={{
         token: {
           borderRadius: 2,
-          fontFamily: 'Roboto, sans-serif'
+          fontFamily: 'Roboto, sans-serif',
+          fontWeightStrong: 500,
+          fontSize: 16,
+          fontSizeHeading3: 24,
+          lineHeightHeading3: 1.916
         },
         components: {
           Radio: {
@@ -20,6 +24,9 @@ export const withStyles = (Component: React.FC) => () => {
           },
           Button: {
             fontSize: 16
+          },
+          Typography: {
+            titleMarginBottom: 0
           }
         }
       }}
