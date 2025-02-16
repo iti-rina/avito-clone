@@ -10,7 +10,11 @@ export const withStyles = (Component: React.FC) => () => {
           fontWeightStrong: 500,
           fontSize: 16,
           fontSizeHeading3: 24,
-          lineHeightHeading3: 1.916
+          fontSizeHeading1: 38,
+          lineHeightHeading3: 1.916,
+          colorPrimary: '#616161',
+          colorPrimaryHover: '#757575',
+          colorPrimaryActive: '#616161'
         },
         components: {
           Radio: {
@@ -23,10 +27,15 @@ export const withStyles = (Component: React.FC) => () => {
             borderRadiusLG: 10
           },
           Button: {
-            fontSize: 16
+            fontSize: 16,
+            boxShadow: 'none'
           },
           Typography: {
             titleMarginBottom: 0
+          },
+          Select: {
+            optionSelectedBg: '#757575',
+            optionSelectedColor: '#fff'
           }
         }
       }}
