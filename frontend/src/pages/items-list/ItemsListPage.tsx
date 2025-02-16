@@ -60,7 +60,7 @@ export const ItemsListPage: FC = () => {
   return (
     <>
       <PageWrapper>
-        <Header style={{}}>
+        <Header>
           <div style={{ display: 'flex', gap: '8px' }}>
             <img src='/favicon.svg' width='40px' height='40px' />
             <Typography.Text style={{ fontSize: '26px', fontWeight: '500' }}>
@@ -150,6 +150,9 @@ const PageWrapper = styled.div`
 const CreateItemButton = styled(Button)`
   align-self: flex-end;
   box-shadow: none !important;
+  @media (max-width: 769px) {
+    width: 100%;
+  }
 `;
 
 const TitleWrapper = styled.div`
@@ -187,6 +190,11 @@ const StyledList = styled(List)`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 18px;
+
+  @media (max-width: 769px) {
+    flex-direction: column;
+  }
 `;
 
 const PaginationWrapper = styled.div`

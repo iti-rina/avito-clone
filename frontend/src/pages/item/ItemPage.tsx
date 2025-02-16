@@ -4,7 +4,7 @@ import { useGetItemById } from '@features/api/itemsService';
 import { Button, Image, Result, Skeleton, Tooltip, Typography } from 'antd';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const orderedKeys = [
@@ -46,18 +46,31 @@ export const ItemPage: FC = () => {
 
   return (
     <PageWrapper>
-      {data && (
-        <>
-          <BackButton
-            type='text'
-            icon={<ArrowLeftOutlined />}
-            onClick={() => navigate(RoutesList.List)}
-            style={{ padding: '8px' }}
-          />
-          <EditButton title={t('editTooltip', { ns: 'actionButton' })}>
-            <Button icon={<EditOutlined />} onClick={handleEditClick} />
-          </EditButton>
+      <header style={{ display: 'flex', gap: '8px', position: 'relative' }}>
+        <Button
+          type='text'
+          icon={<ArrowLeftOutlined />}
+          onClick={() => navigate(RoutesList.List)}
+          style={{ padding: '8px' }}
+        />
+        <Logo>
+          <img src='/favicon.svg' width='40px' height='40px' />
+          <Typography.Text
+            style={{
+              fontSize: '26px',
+              fontWeight: '500'
+            }}
+          >
+            Клон Авито
+          </Typography.Text>
+        </Logo>
 
+        <EditButton title={t('editTooltip', { ns: 'actionButton' })}>
+          <Button icon={<EditOutlined />} onClick={handleEditClick} />
+        </EditButton>
+      </header>
+      <MainContentWrapper>
+        {data && (
           <ItemContent>
             {data?.photo && !imgError ? (
               <ItemImage src={data.photo} onError={() => setImgError(true)} />
@@ -105,44 +118,65 @@ export const ItemPage: FC = () => {
               </ItemAditionalInfo>
             </div>
           </ItemContent>
-        </>
-      )}
+        )}
 
-      {isLoading && (
-        <>
-          <Button
-            type='text'
-            icon={<ArrowLeftOutlined />}
-            onClick={() => navigate(RoutesList.List)}
-            style={{ padding: '8px' }}
+        {isLoading && (
+          <>
+            <Button
+              type='text'
+              icon={<ArrowLeftOutlined />}
+              onClick={() => navigate(RoutesList.List)}
+              style={{ padding: '8px' }}
+            />
+            <Skeleton.Image
+              style={{ width: '725px', height: '498px' }}
+              active
+            />
+            <Skeleton active />
+          </>
+        )}
+
+        {isError || !id ? (
+          <Result
+            status='404'
+            title='404'
+            subTitle={t('404', { ns: 'messages' })}
+            extra={<Button type='primary'>Back Home</Button>}
           />
-          <Skeleton.Image style={{ width: '725px', height: '498px' }} active />
-          <Skeleton active />
-        </>
-      )}
-
-      {isError || !id ? (
-        <Result
-          status='404'
-          title='404'
-          subTitle={t('404', { ns: 'messages' })}
-          extra={<Button type='primary'>Back Home</Button>}
-        />
-      ) : null}
+        ) : null}
+      </MainContentWrapper>
     </PageWrapper>
   );
 };
 
-const PageWrapper = styled.div`
+const MainContentWrapper = styled.div`
   display: flex;
   gap: 16px;
-  padding: 78px 0 20px;
+  padding: 38px 0 20px;
   justify-content: center;
   position: relative;
 
   @media (max-width: 767px) {
     flex-direction: column;
   }
+`;
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* padding: 78px 0 20px; */
+  justify-content: center;
+  position: relative;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+`;
+
+const Logo = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const ItemContent = styled.div`
@@ -174,12 +208,6 @@ const EditButton = styled(Tooltip)`
   position: absolute;
   top: 0;
   right: 0;
-`;
-
-const BackButton = styled(Button)`
-  position: absolute;
-  top: 0;
-  left: 0;
 `;
 
 const ItemImage = styled(Image)`
