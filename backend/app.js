@@ -23,10 +23,10 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // In-memory хранилище для объявлений
-let items = [...initialMockItems];
+let items = [...db];
 
 const makeCounter = () => {
-  let count = initialMockItems.length;
+  let count = db.length;
   return () => count++;
 };
 
@@ -91,11 +91,11 @@ app.get('/items', (req, res) => {
 
   let filteredByCategory = [];
   if (category !== 'all') {
-    filteredByCategory = items.filter(
-      (item) => item.type === ItemTypes[category]
-    );
+    filteredByCategory = [...items]
+      .reverse()
+      .filter((item) => item.type === ItemTypes[category]);
   } else {
-    filteredByCategory = items;
+    filteredByCategory = [...items].reverse();
   }
 
   let filteredBySearch = [];
