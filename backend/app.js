@@ -380,7 +380,7 @@ app.post('/items', (req, res) => {
 
 // Получение всех объявлений
 app.get('/items', (req, res) => {
-  let { page = 1, limit = 5, category = '' } = req.query;
+  let { page = 1, limit = 5, category = '', search = '' } = req.query;
   page = parseInt(page);
   limit = parseInt(limit);
 
@@ -396,11 +396,20 @@ app.get('/items', (req, res) => {
     filteredByCategory = items;
   }
 
-  let paginatedItems = filteredByCategory.slice(startIndex, endIndex);
+  let filteredBySearch = [];
+  if (search !== '') {
+    filteredBySearch = filteredByCategory.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+    );
+  } else {
+    filteredBySearch = filteredByCategory;
+  }
+
+  let paginatedItems = filteredBySearch.slice(startIndex, endIndex);
 
   res.set({
-    'X-Total-Count': filteredByCategory.length,
-    'X-Total-Pages': Math.ceil(filteredByCategory.length / limit),
+    'X-Total-Count': filteredBySearch.length,
+    'X-Total-Pages': Math.ceil(filteredBySearch.length / limit),
     'X-Current-Page': page
   });
 
@@ -417,15 +426,21 @@ app.get('/items/:id', (req, res) => {
   }
 });
 
-// Обновление объявления по его id
+//Обновление объявления по его id
 app.put('/items/:id', (req, res) => {
-  const item = items.find((i) => i.id === parseInt(req.params.id, 10));
-  if (item) {
+  const index = items.findIndex((i) => i.id === parseInt(req.params.id, 10));
+
+  if (index === -1) return res.status(404).send('Item not found');
+
+  const item = items[index];
+
+  if (item.type === req.body.type) {
     Object.assign(item, req.body);
-    res.json(item);
-  } else {
-    res.status(404).send('Item not found');
+    return res.json(item);
   }
+
+  items[index] = { ...req.body, id: index };
+  res.json(item[index]);
 });
 
 // Удаление объявления по его id
