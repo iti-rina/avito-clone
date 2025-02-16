@@ -5,24 +5,7 @@ import styled from 'styled-components';
 import { InputLabel } from './InutLabel';
 import { Controller, useFormContext } from 'react-hook-form';
 import { ValidationError } from './ValidationError';
-
-const carBrands = [
-  'Toyota',
-  'Mercedes-Benz',
-  'BMW',
-  'Volkswagen',
-  'Audi',
-  'Ford',
-  'Honda',
-  'Chevrolet',
-  'Hyundai',
-  'Nissan',
-  'Lexus',
-  'Porsche',
-  'Tesla',
-  'Ferrari',
-  'Lamborghini'
-];
+import { carBrands } from '@shared/constants/carBrands';
 
 export const AutoFields: FC = () => {
   const { t } = useTranslation(['createItemForm']);

@@ -35,6 +35,7 @@ export const RealEstateFields: FC = () => {
             <Select
               {...field}
               style={{ width: '100%' }}
+              size='large'
               options={propertyTypes.map((type) => ({
                 value: type.value,
                 label: `${t(`propertyType.${type.key}`)}`

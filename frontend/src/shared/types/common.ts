@@ -1,6 +1,7 @@
 type Category = 'Недвижимость' | 'Авто' | 'Услуги';
 
 export type Item = {
+  id: string;
   name: string;
   description: string;
   location: string;

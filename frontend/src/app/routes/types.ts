@@ -3,9 +3,10 @@ import { LoaderFunction } from 'react-router-dom';
 
 export enum RoutesList {
   RootPage = '/',
-  List = 'list',
-  Item = 'item/:id',
-  Form = 'form'
+  List = '/list',
+  Item = '/item/:id',
+  Form = '/form',
+  Edit = 'item/:id/edit'
 }
 
 export type RouteParams = {

@@ -9,7 +9,6 @@ type ButtonProps = {
 export const CloseFormButton: FC<ButtonProps> = ({ onClick }) => {
   return (
     <Button
-      type='text'
       size='large'
       icon={<CloseOutlined onClick={onClick} style={{ fontSize: '24px' }} />}
     />
