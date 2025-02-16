@@ -6,22 +6,37 @@ import {
   ServicesItem
 } from '@shared/types/common';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { AxiosHeaders } from 'axios';
 
-const fetchItems = async (page: number, limit: number, category?: string) => {
+type ItemsResponse = {
+  data: (RealEstateItem | AutoItem | ServicesItem)[];
+  total: number;
+  totalPages: number;
+  currentPage: number;
+};
+
+const fetchItems = async (
+  page: number,
+  limit: number,
+  category?: string,
+  search?: string,
+  signal?: AbortSignal
+): Promise<ItemsResponse> => {
   const response = await apiClient.get('/items', {
-    params: { page, limit, category }
+    params: { page, limit, category, search },
+    signal
   });
-  console.log(response.headers);
+
   return {
     data: response.data,
-    total: response.headers.get('X-Total-Count'),
-    totalPages: response.headers.get('X-Total-Pages'),
-    currentPage: response.headers.get('X-Current-Page')
+    total: response.headers.get('X-Total-Count') ?? 0,
+    totalPages: response.headers.get('X-Total-Pages') ?? 1,
+    currentPage: response.headers.get('X-Current-Page') ?? 1
   };
 };
 
-const fetchItemById = async (id: string) => {
-  const { data } = await apiClient.get(`/items/${id}`);
+const fetchItemById = async (id: string, signal: AbortSignal) => {
+  const { data } = await apiClient.get(`/items/${id}`, { signal });
   return data;
 };
 
@@ -38,20 +53,32 @@ const editItem = async ({ id, itemData }: EditItemParams) => {
 export const useGetItems = ({
   page,
   limit,
-  category
+  category,
+  search
 }: {
   page: number;
   limit: number;
   category: string;
+  search: string;
 }) => {
-  return useQuery({
-    queryKey: ['items', page, category],
-    queryFn: () => fetchItems(page, limit, category)
+  return useQuery<ItemsResponse>({
+    queryKey: ['items', page, category, search],
+    queryFn: ({ signal }) => fetchItems(page, limit, category, search, signal)
   });
 };
 
-export const useGetItemById = (id: string) => {
-  return useQuery({ queryKey: ['item', id], queryFn: () => fetchItemById(id) });
+export const useGetItemById = ({
+  id,
+  isEnabled
+}: {
+  id: string;
+  isEnabled?: boolean;
+}) => {
+  return useQuery({
+    queryKey: ['item', id],
+    queryFn: ({ signal }) => fetchItemById(id, signal),
+    enabled: isEnabled ?? true
+  });
 };
 
 export const useCreateItem = () => {
