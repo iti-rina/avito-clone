@@ -30,9 +30,7 @@ export const UploadPhoto: FC = () => {
 
       const base64 = await getBase64(compressedFile);
       setValue('photo', base64);
-      setFileList([
-        { uid: file.uid, name: file.name, status: 'done', url: base64 }
-      ]);
+      setFileList([{ name: file.name, status: 'done', url: base64 }]);
     } catch (error) {
       message.error('Ошибка загрузки файла');
     }

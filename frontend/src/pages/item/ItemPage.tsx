@@ -4,7 +4,7 @@ import { useGetItemById } from '@features/api/itemsService';
 import { Button, Image, Result, Skeleton, Tooltip, Typography } from 'antd';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const orderedKeys = [
@@ -102,14 +102,13 @@ export const ItemPage: FC = () => {
                           ? t(`services.${data[key]}`, {
                               ns: 'createItemForm'
                             })
-                          : data[key]}{' '}
+                          : data[key]}
                         {suffixes[key] ? suffixes[key] : null}
                       </Typography.Text>
                     </React.Fragment>
                   ))}
 
                 <Label>
-                  {' '}
                   {t('labelDescription', {
                     ns: 'createItemForm'
                   })}
@@ -165,7 +164,6 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  /* padding: 78px 0 20px; */
   justify-content: center;
   position: relative;
 
