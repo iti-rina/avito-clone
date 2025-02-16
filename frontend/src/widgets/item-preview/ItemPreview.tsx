@@ -76,7 +76,9 @@ const MainInfoWrapper = styled.div`
 
 const TitleWithoutMarginTop = styled(Typography.Title)`
   margin-top: 0;
-  text-align: center;
+  @media (max-width: 769px) {
+    text-align: center;
+  }
 `;
 
 const Divider = styled.div`
