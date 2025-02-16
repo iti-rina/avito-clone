@@ -96,7 +96,6 @@ export const useCreateItemForm = () => {
     mutate(data, {
       onSuccess: () => {
         localStorage.removeItem(STORAGE_KEY);
-        console.log(data);
         setSuccess(true);
         setTimeout(() => navigate(RoutesList.List), 3000);
       },
