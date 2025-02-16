@@ -10,23 +10,23 @@ import { Link } from 'react-router-dom';
 
 type ItemPreviewProps = {
   item: RealEstateItem | AutoItem | ServicesItem;
-  id: string;
 };
 
-export const ItemPreview: FC<ItemPreviewProps> = ({ item, id }) => {
+export const ItemPreview: FC<ItemPreviewProps> = ({ item }) => {
   const [imgError, setImgError] = useState(false);
+
   return (
     <List.Item>
-      <Link to={`item/${id}`} style={{ width: '100%' }}>
+      <Link to={`/item/${item.id}`} style={{ width: '100%' }}>
         <ItemContent>
           {item.photo && !imgError ? (
             <Image
               width={271}
               height={186}
-              src={item.photo}
+              src={String(item.photo)}
               style={{
-                objectFit: 'cover',
-                objectPosition: 'top left',
+                objectFit: 'contain',
+                objectPosition: 'center',
                 borderRadius: '8px'
               }}
               onError={() => setImgError(true)}
