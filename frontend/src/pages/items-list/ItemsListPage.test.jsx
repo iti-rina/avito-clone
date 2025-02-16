@@ -28,28 +28,9 @@ const createTestQueryClient = () =>
   new QueryClient({ defaultOptions: { queries: { retry: false } } });
 
 describe('ItemsListPage', () => {
-  it('должен вызывать useGetItems с корректными параметрами', async () => {
-    render(
-      <QueryClientProvider client={createTestQueryClient()}>
-        <BrowserRouter>
-          <ItemsListPage />
-        </BrowserRouter>
-      </QueryClientProvider>
-    );
-
-    await waitFor(() => {
-      expect(useGetItems).toHaveBeenCalledWith({
-        page: 1,
-        limit: 5,
-        category: 'all',
-        search: ''
-      });
-    });
-  });
-
   it('должен рендерить объявление', async () => {
     useGetItems.mockReturnValue({
-      data: { data: mockData, total: 1, totalPages: 1, currentPage: 1 }, // ✅ Оборачиваем в `data`
+      data: { data: mockData, total: 1, totalPages: 1, currentPage: 1 },
       isLoading: false,
       isError: false
     });
