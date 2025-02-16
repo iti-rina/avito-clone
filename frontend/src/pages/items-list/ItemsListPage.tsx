@@ -1,12 +1,23 @@
+import { PlusOutlined } from '@ant-design/icons';
+import { RoutesList } from '@app/routes/types';
 import { useGetItems } from '@features/api/itemsService';
 import { SearchInput } from '@features/search-by-name/Search';
 import { ItemPreviewSkeleton } from '@shared/ui/ItemPreviewSkeleton';
 import { ItemPreview } from '@widgets/item-preview/ItemPreview';
-import { List, Pagination, Result, Select } from 'antd';
+import { Button, List, Pagination, Result, Select } from 'antd';
 import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const ItemsListPage: FC = () => {
+  const navigate = useNavigate();
+  const onCreateItemClick = () => {
+    navigate(RoutesList.Form);
+  };
+
+  const { t } = useTranslation(['actionButton', 'createItemForm']);
+
   const [page, setCurrentPage] = useState(1);
   const limit = 5;
 
@@ -32,34 +43,61 @@ export const ItemsListPage: FC = () => {
   return (
     <>
       <PageWrapper>
+        <CreateItemButton
+          type='primary'
+          onClick={onCreateItemClick}
+          size='large'
+          icon={<PlusOutlined />}
+        >
+          {t('createItemMain')}
+        </CreateItemButton>
+
+        <SearchInput
+          onSearch={setSearch}
+          isLoading={isLoading && search !== ''}
+        />
+
         <Select
           defaultValue={category}
           style={{ width: '250px' }}
           options={[
-            { value: 'all', label: 'Все' },
-            { value: 'REAL_ESTATE', label: 'Недвижимость' },
-            { value: 'AUTO', label: 'Авто' },
-            { value: 'SERVICES', label: 'Услуги' }
+            {
+              value: 'all',
+              label: `${t('all', { ns: 'createItemForm' })}`
+            },
+            {
+              value: 'REAL_ESTATE',
+              label: `${t('realEstateCategory', { ns: 'createItemForm' })}`
+            },
+            {
+              value: 'AUTO',
+              label: `${t('autoCategory', { ns: 'createItemForm' })}`
+            },
+            {
+              value: 'SERVICES',
+              label: `${t('servicesCategory', { ns: 'createItemForm' })}`
+            }
           ]}
           onChange={handleCategoryChange}
         />
-        <StyledList>
-          {data && (
-            <>
-              {data.data.map((item, index: number) => (
-                <ItemPreview item={item} id={item.id ? item.id : index} />
-              ))}
-              <Pagination
-                defaultCurrent={1}
-                total={data.total}
-                pageSize={limit}
-                current={page}
-                onChange={(page) => setCurrentPage(page)}
-              />
-            </>
-          )}
-          {isLoading && loaders}
-        </StyledList>
+
+        {data && (
+          <StyledList>
+            {data.data.map((item) => (
+              <ItemPreview item={item} />
+            ))}
+            <Pagination
+              defaultCurrent={1}
+              total={data.total}
+              pageSize={limit}
+              current={page}
+              onChange={(page) => setCurrentPage(page)}
+              style={{ marginTop: '16px' }}
+            />
+          </StyledList>
+        )}
+
+        {isLoading && <StyledList>{loaders}</StyledList>}
       </PageWrapper>
       {isError && (
         <Result status='500' title='Не удалось загрузить объявления' />
@@ -69,12 +107,19 @@ export const ItemsListPage: FC = () => {
 };
 
 const PageWrapper = styled.div`
-  padding-left: 48px;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+`;
+
+const CreateItemButton = styled(Button)`
+  align-self: flex-end;
+  box-shadow: none !important;
 `;
 
 const StyledList = styled(List)`
   .ant-list-item {
     justify-content: flex-start !important;
   }
-  width: 928px;
 `;
