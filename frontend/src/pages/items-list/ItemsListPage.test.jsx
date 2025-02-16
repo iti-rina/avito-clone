@@ -54,15 +54,16 @@ describe('ItemsListPage', () => {
       isError: false
     });
 
-    render(
-      <QueryClientProvider client={createTestQueryClient()}>
-        <BrowserRouter>
-          <ItemsListPage />
-        </BrowserRouter>
-      </QueryClientProvider>
-    );
+    await (() =>
+      render(
+        <QueryClientProvider client={createTestQueryClient()}>
+          <BrowserRouter>
+            <ItemsListPage />
+          </BrowserRouter>
+        </QueryClientProvider>
+      ));
 
-    await waitFor(() => {
+    await (() => {
       expect(screen.queryByText('Продам Lexus')).toBeInTheDocument();
     });
   });

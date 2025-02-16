@@ -6,7 +6,6 @@ import {
   ServicesItem
 } from '@shared/types/common';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosHeaders } from 'axios';
 
 type ItemsResponse = {
   data: (RealEstateItem | AutoItem | ServicesItem)[];
@@ -15,7 +14,7 @@ type ItemsResponse = {
   currentPage: number;
 };
 
-const fetchItems = async (
+export const fetchItems = async (
   page: number,
   limit: number,
   category?: string,
@@ -29,23 +28,28 @@ const fetchItems = async (
 
   return {
     data: response.data,
+    // @ts-expect-error: headers
     total: response.headers.get('X-Total-Count') ?? 0,
+    // @ts-expect-error: headers
     totalPages: response.headers.get('X-Total-Pages') ?? 1,
+    // @ts-expect-error: headers
     currentPage: response.headers.get('X-Current-Page') ?? 1
   };
 };
 
-const fetchItemById = async (id: string, signal: AbortSignal) => {
+export const fetchItemById = async (id: string, signal: AbortSignal) => {
   const { data } = await apiClient.get(`/items/${id}`, { signal });
   return data;
 };
 
-const createItem = async (adData: RealEstateItem | AutoItem | ServicesItem) => {
+export const createItem = async (
+  adData: RealEstateItem | AutoItem | ServicesItem
+) => {
   const { data } = await apiClient.post('/items', adData);
   return data;
 };
 
-const editItem = async ({ id, itemData }: EditItemParams) => {
+export const editItem = async ({ id, itemData }: EditItemParams) => {
   const { data } = await apiClient.put(`/items/${id}`, itemData);
   return data;
 };

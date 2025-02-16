@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,6 +11,7 @@ import {
 import { RoutesList } from '@app/routes/types';
 import { getAllowedFields } from '@shared/utils/getAllowedFields';
 import { getStepFromType } from '../lib/getStepFromType';
+import { AutoItem, RealEstateItem, ServicesItem } from '@shared/types/common';
 
 const STORAGE_KEY = 'createItemDraft';
 
@@ -25,7 +26,7 @@ export const useCreateItemForm = () => {
     isEnabled: isEdit
   });
 
-  const { mutate, isPending, isError } = useCreateItem();
+  const { mutate, isError } = useCreateItem();
   const { mutate: editMutate } = useEditItem();
 
   const [step, setStep] = useState<'base' | 'realEstate' | 'auto' | 'services'>(
@@ -91,10 +92,11 @@ export const useCreateItemForm = () => {
     setStep('base');
   };
 
-  const handleCreate = (data: any) => {
+  const handleCreate = (data: RealEstateItem | AutoItem | ServicesItem) => {
     mutate(data, {
       onSuccess: () => {
         localStorage.removeItem(STORAGE_KEY);
+        console.log(data);
         setSuccess(true);
         setTimeout(() => navigate(RoutesList.List), 3000);
       },
@@ -102,7 +104,7 @@ export const useCreateItemForm = () => {
     });
   };
 
-  const handleEdit = (data: any) => {
+  const handleEdit = (data: RealEstateItem | AutoItem | ServicesItem) => {
     const allowedFields = getAllowedFields(data.type);
     const filteredData = Object.keys(data)
       .filter((key) => allowedFields.includes(key))
@@ -130,7 +132,7 @@ export const useCreateItemForm = () => {
     clearForm();
     navigate(RoutesList.List);
   };
-  const onSubmit = (data: any) =>
+  const onSubmit = (data: RealEstateItem | AutoItem | ServicesItem) =>
     isEdit ? handleEdit(data) : handleCreate(data);
 
   return {

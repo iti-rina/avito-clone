@@ -10,7 +10,8 @@ export const CloseFormButton: FC<ButtonProps> = ({ onClick }) => {
   return (
     <Button
       size='large'
-      icon={<CloseOutlined onClick={onClick} style={{ fontSize: '24px' }} />}
+      onClick={onClick}
+      icon={<CloseOutlined style={{ fontSize: '24px' }} />}
     />
   );
 };

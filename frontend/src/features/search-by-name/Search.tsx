@@ -27,6 +27,7 @@ export const SearchInput: FC<SearchInputProps> = ({ onSearch, isLoading }) => {
       value={searchValue}
       onChange={(e) => setSearchValue(e.target.value)}
       onSearch={onSearch}
+      style={{ outline: 'none' }}
     />
   );
 };

@@ -12,7 +12,7 @@ export const withStyles = (Component: React.FC) => () => {
           fontSizeHeading3: 24,
           fontSizeHeading1: 38,
           lineHeightHeading3: 1.916,
-          colorPrimary: '#616161',
+          colorPrimary: '#000000',
           colorPrimaryHover: '#757575',
           colorPrimaryActive: '#616161'
         },
@@ -34,7 +34,7 @@ export const withStyles = (Component: React.FC) => () => {
             titleMarginBottom: 0
           },
           Select: {
-            optionSelectedBg: '#757575',
+            optionSelectedBg: '#000000',
             optionSelectedColor: '#fff'
           }
         }

@@ -16,7 +16,7 @@ export const ItemPreview: FC<ItemPreviewProps> = ({ item }) => {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <List.Item>
+    <Item>
       <Link to={`/item/${item.id}`} style={{ width: '100%' }}>
         <ItemContent>
           {item.photo && !imgError ? (
@@ -44,7 +44,7 @@ export const ItemPreview: FC<ItemPreviewProps> = ({ item }) => {
           </MainInfoWrapper>
         </ItemContent>
       </Link>
-    </List.Item>
+    </Item>
   );
 };
 
@@ -55,16 +55,28 @@ const ItemContent = styled.div`
 
   @media (max-width: 769px) {
     flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const Item = styled(List.Item)`
+  transition: background-color 0.3s ease-in-out 0.2s;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.06);
   }
 `;
 const MainInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
+  @media (max-width: 769px) {
+    align-items: center;
+  }
 `;
 
 const TitleWithoutMarginTop = styled(Typography.Title)`
   margin-top: 0;
+  text-align: center;
 `;
 
 const Divider = styled.div`
