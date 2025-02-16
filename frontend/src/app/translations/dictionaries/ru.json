@@ -1,6 +1,7 @@
 {
   "createItemForm": {
     "title": "Новое объявление",
+    "editTitle": "Редактирование",
     "labelTitle": "Название",
     "labelDescription": "Описание",
     "labelCity": "Город",
@@ -11,6 +12,7 @@
     "realEstateCategory": "Недвижимость",
     "autoCategory": "Автомобили",
     "servicesCategory": "Услуги",
+    "all": "Все",
     "labelPropertyType": "Тип недвижимости",
     "propertyType": {
       "apartment": "Квартира",
@@ -58,6 +60,15 @@
     "next": "Далее",
     "back": "Назад",
     "createItem": "Создать объявление",
-    "saveAndExit": "Сохранить и выйти"
+    "saveAndExit": "Сохранить и выйти",
+    "done": "Готово",
+    "createItemMain": "Разместить объявление",
+    "searchPlaceholder": "Поиск по названию",
+    "searchButton": "Поиск",
+    "saveDraft": "Сохранить черновик и выйти",
+    "editTooltip": "Редактировать объявление"
+  },
+  "messages": {
+    "404": "Извините, страница, которую вы посетили, не существует."
   }
 }

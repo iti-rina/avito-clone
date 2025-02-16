@@ -1,6 +1,7 @@
 {
   "createItemForm": {
     "title": "New item",
+    "editTitle": "Edit item",
     "labelTitle": "Title",
     "labelDescription": "Description",
     "labelCity": "City",
@@ -11,6 +12,7 @@
     "realEstateCategory": "Real estate",
     "autoCategory": "Auto",
     "servicesCategory": "Services",
+    "all": "All",
     "labelPropertyType": "Property Type",
     "propertyType": {
       "apartment": "Apartment",
@@ -58,6 +60,15 @@
     "next": "Next",
     "back": "Go back",
     "createItem": "Create item",
-    "saveAndExit": "Save & Exit"
+    "saveAndExit": "Save & Exit",
+    "done": "Done",
+    "createItemMain": "Create item",
+    "searchPlaceholder": "Search by name",
+    "searchButton": "Search",
+    "saveDraft": "Save draft & Exit",
+    "editTooltip": "Edit item"
+  },
+  "messages": {
+    "404": "Sorry, the page you visited does not exist."
   }
 }
