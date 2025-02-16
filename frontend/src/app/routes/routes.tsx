@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { RouteParams, RoutesList } from './types';
-import { CreateItemForm } from '@features/create-item/ui/CreateItemForm';
+import { CreateItemForm } from '@features/create-item/ui';
 import { ItemsListPage } from '@pages/items-list/ItemsListPage';
 import { ItemPage } from '@pages/item/ItemPage';
 
@@ -19,6 +19,10 @@ export const routes: RouteParams[] = [
   },
   {
     path: RoutesList.Form,
+    element: <CreateItemForm />
+  },
+  {
+    path: RoutesList.Edit,
     element: <CreateItemForm />
   }
 ];
