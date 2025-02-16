@@ -1,4 +1,5 @@
 import { useGetItems } from '@features/api/itemsService';
+import { SearchInput } from '@features/search-by-name/Search';
 import { ItemPreviewSkeleton } from '@shared/ui/ItemPreviewSkeleton';
 import { ItemPreview } from '@widgets/item-preview/ItemPreview';
 import { List, Pagination, Result, Select } from 'antd';
@@ -15,7 +16,14 @@ export const ItemsListPage: FC = () => {
     setCategory(value);
   };
 
-  const { data, isError, isLoading } = useGetItems({ page, limit, category });
+  const [search, setSearch] = useState('');
+
+  const { data, isError, isLoading } = useGetItems({
+    page,
+    limit,
+    category,
+    search: search.toLowerCase()
+  });
 
   const loaders = Array.from(Array(5).keys()).map((item) => (
     <ItemPreviewSkeleton key={`${item}-skeleton`} />
